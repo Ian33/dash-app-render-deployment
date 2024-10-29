@@ -2,7 +2,6 @@
 gunicorn
 sodapy
 requests
-base64
 urllib.parse
 datetime
 plotly.express
