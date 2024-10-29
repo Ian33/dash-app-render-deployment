@@ -1,6 +1,9 @@
-dash==2.9.3
-numpy
-pandas
-scikit_learn
-plotly
+
 gunicorn
+sodapy
+requests
+base64
+urllib.parse
+datetime
+plotly.express
+dash
