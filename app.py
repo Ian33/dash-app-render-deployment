@@ -24,7 +24,7 @@ app.layout = html.Div([
     dcc.Store(id = 'metadata'), # store site metadata
     dcc.Store(id = 'gagers'), # store gager list
     dcc.Store(id = 'telemetry'), # store telemetry
-    html.Div(id='battery_site_status'),
+   
  
 
 ])
@@ -91,7 +91,6 @@ def telemetry_status(n_clicks):
 
 @app.callback(
     Output('battery-graph', 'figure'),
-    Output('battery_site_status', 'children'),
     Input('metadata', 'data'),
     Input('telemetry', 'data'),
     Input('refresh-button', 'n_clicks')
@@ -128,11 +127,11 @@ def create_battery_graph(metadata, telemetry, n_clicks):
     fig = px.scatter_map(battery_site_status,
                          lat=battery_site_status["latitude"],
                          lon=battery_site_status["longitude"],
-                         color=battery_site_status["battery_volts"],
+                         color=battery_site_status["color_category"],
                          hover_name="site",
                          hover_data={"battery_volts": True, "latitude": False, "longitude": False, "color_category": False},
                           zoom=9)
-    return fig, battery_site_status.to_json(orient="split")
+    return fig
 
 
 
