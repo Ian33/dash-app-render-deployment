@@ -23,15 +23,14 @@ app.layout = html.Div([
     dcc.Store(id = 'metadata'), # store site metadata
     dcc.Store(id = 'gagers'), # store gager list
     dcc.Store(id = 'telemetry'), # store telemetry
-    html.Div(id='telemetry-output'),
-    html.Div(id='metadata-output'),
+    html.Div(id='battery_site_status'),
+ 
 
 ])
 # Define the layout of the dashboard
 @app.callback(
     Output('metadata', 'data'),
     Output('gagers', 'data'),
-    Output('metadata-output', 'children'),
     Input('refresh-button', 'n_clicks')
 )
 # Define functions as in your original code
@@ -54,12 +53,11 @@ def site_metadata(n_clicks):
         df = df.to_json(orient="split")
     else:
         return dash.no_update 
-    return df, gager_list, df
+    return df, gager_list
 
 
 @app.callback(
     Output('telemetry', 'data'),
-    Output('telemetry-output', 'children'),
     Input('refresh-button', 'n_clicks')
 )
 def telemetry_status(n_clicks):
@@ -87,11 +85,12 @@ def telemetry_status(n_clicks):
         df = df.to_json(orient="split")
     else:
         return dash.no_update
-    return df,df
+    return df
 
 
 @app.callback(
     Output('battery-graph', 'figure'),
+    Output('battery_site_status', 'children'),
     Input('metadata', 'data'),
     Input('telemetry', 'data'),
     Input('refresh-button', 'n_clicks')
@@ -130,7 +129,7 @@ def create_battery_graph(metadata, telemetry, n_clicks):
                           hover_name="site",
                           hover_data={"battery_volts": True, "latitude": False, "longitude": False, "color_category": False},
                           zoom=9)
-    return fig
+    return fig, battery_site_status
 
 
 
