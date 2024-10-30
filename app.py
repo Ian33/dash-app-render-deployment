@@ -10,7 +10,7 @@ import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output, State
 
-
+# in render The "Start Command" should be updated as follows: $gunicorn app:server
 # Create the Dash app
 app = dash.Dash(__name__)
 server = app.server
