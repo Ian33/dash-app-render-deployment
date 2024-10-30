@@ -8,32 +8,6 @@ from datetime import datetime, timedelta
 import plotly.express as px
 from dash import Dash, dcc, html, Input, Output
 
- # Load dataset
-data = pd.read_csv('data/winequality-red.csv')
-# Check for missing values
-data.isna().sum()
-# Remove duplicate data
-data.drop_duplicates(keep='first')
-# Calculate the correlation matrix
-corr_matrix = data.corr()
-# Label quality into Good (1) and Bad (0)
-data['quality'] = data['quality'].apply(lambda x: 1 if x >= 6.0 else 0)
-    # Drop the target variable
-X = data.drop('quality', axis=1)
-# Set the target variable as the label
-y = data['quality']
-
-
-# Split the dat a into training and testing sets (80% training, 20% testing)
-X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.20, random_state=42)
-# Create an instance of the logistic regression model
-logreg_model = LogisticRegression()
-# Fit the model to the training data
-logreg_model.fit(X_train, y_train)
-
-# Predict the labels of the test set
-# y_pred = logreg_model.predict(X_test)
-
 
 # Create the Dash app
 app = dash.Dash(__name__)
