@@ -129,7 +129,7 @@ def create_battery_graph(metadata, telemetry, n_clicks):
                           hover_name="site",
                           hover_data={"battery_volts": True, "latitude": False, "longitude": False, "color_category": False},
                           zoom=9)
-    return fig, battery_site_status
+    return fig, battery_site_status.to_json(orient="split")
 
 
 
