@@ -5,8 +5,8 @@ import requests
 import base64
 from urllib.parse import urlencode
 from datetime import datetime, timedelta
-#import plotly.express as px
-import plotly.graph_objects as go
+import plotly.express as px
+#import plotly.graph_objects as go
 import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output, State
@@ -115,22 +115,8 @@ def create_battery_graph(metadata, telemetry, n_clicks):
     battery_site_status.loc[(battery_site_status["battery_volts"] >= 12.3) & (battery_site_status["battery_volts"] < 12.5), 'color_category'] = "< 12.5"
     battery_site_status.loc[battery_site_status["battery_volts"] >= 12.5, 'color_category'] = "12.5 +"
     
-    fig = go.Figure()
-    fig.add_trace(go.Scattermap(
-                        lat=battery_site_status["latitude"],
-                         lon=battery_site_status["longitude"],))
-    #                      color="color_category",
-    #                      color_discrete_map={
-    #                          "grey": "grey",
-    #                          "< 11.5": "red",
-    #                          "< 12": "darkred",
-    #                          "< 12.3": "darkorange",
-    #                          "< 12.5": "orange",
-    #                          "12.5 +": "blue",
-    #                      },
-    #                      hover_name="site",
-    #                      hover_data={"battery_volts": True, "latitude": False, "longitude": False, "color_category": False},
-    #                      zoom=9)
+    fig = px.scatter(battery_site_status, y="latitude", x="longitude", color="battery_volts")
+                          
 
     #fig = px.scatter_map(battery_site_status,
     #                      lat=battery_site_status["latitude"],
