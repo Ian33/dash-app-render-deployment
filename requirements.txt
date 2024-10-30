@@ -2,7 +2,6 @@
 gunicorn
 sodapy
 requests
-urllib
 datetime
 plotly.express
 dash

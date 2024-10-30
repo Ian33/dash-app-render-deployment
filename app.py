@@ -2,7 +2,7 @@
 import pandas as pd
 from sodapy import Socrata
 import requests
-#import base64
+import base64
 from urllib.parse import urlencode
 from datetime import datetime, timedelta
 import plotly.express as px
