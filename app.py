@@ -128,7 +128,7 @@ def create_battery_graph(metadata, telemetry, n_clicks):
     fig = px.scatter_map(battery_site_status,
                          lat=battery_site_status["latitude"],
                          lon=battery_site_status["longitude"],
-                         color=battery_site_status["battery_volts"]
+                         color=battery_site_status["battery_volts"],
                          hover_name="site",
                          hover_data={"battery_volts": True, "latitude": False, "longitude": False, "color_category": False},
                           zoom=9)
