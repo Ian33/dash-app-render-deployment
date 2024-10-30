@@ -131,6 +131,17 @@ def create_battery_graph(metadata, telemetry, n_clicks):
                          hover_name="site",
                          hover_data={"battery_volts": True, "latitude": False, "longitude": False, "color_category": False},
                           zoom=9)
+
+    fig.update_layout(
+    legend=dict(
+        orientation="h",
+        yanchor="bottom",
+        y=0,  # Position at the bottom
+        xanchor="center",
+        x=0.5  # Center horizontally
+    ),
+    #mapbox_style="open-street-map"  # Add map style if not already defined
+)
     return fig
 
 
