@@ -115,24 +115,23 @@ def create_battery_graph(metadata, telemetry, n_clicks):
     battery_site_status.loc[(battery_site_status["battery_volts"] >= 12.3) & (battery_site_status["battery_volts"] < 12.5), 'color_category'] = "< 12.5"
     battery_site_status.loc[battery_site_status["battery_volts"] >= 12.5, 'color_category'] = "12.5 +"
     
-    fig = px.scatter(battery_site_status, y="latitude", x="longitude", color="battery_volts")
+    #fig = px.scatter(battery_site_status, y="latitude", x="longitude", color="battery_volts")
                           
-
-    #fig = px.scatter_map(battery_site_status,
-    #                      lat=battery_site_status["latitude"],
-    #                      lon=battery_site_status["longitude"],
-    #                      color="color_category",
-    #                      color_discrete_map={
-    #                          "grey": "grey",
-    #                          "< 11.5": "red",
-    #                          "< 12": "darkred",
-    #                          "< 12.3": "darkorange",
-    #                          "< 12.5": "orange",
-    #                          "12.5 +": "blue",
-    #                      },
-    #                      hover_name="site",
-    #                      hover_data={"battery_volts": True, "latitude": False, "longitude": False, "color_category": False},
-    #                      zoom=9)
+    #color_discrete_map={
+    #                         "grey": "grey",
+    #                      "< 11.5": "red",
+    #                      "< 12": "darkred",
+    #                      "< 12.3": "darkorange",
+    #                      "< 12.5": "orange",
+    #                         "12.5 +": "blue",
+    #                     },
+    fig = px.scatter_map(battery_site_status,
+                         lat=battery_site_status["latitude"],
+                         lon=battery_site_status["longitude"],
+                         color=battery_site_status["battery_volts"]
+                         hover_name="site",
+                         hover_data={"battery_volts": True, "latitude": False, "longitude": False, "color_category": False},
+                          zoom=9)
     return fig, battery_site_status.to_json(orient="split")
 
 
