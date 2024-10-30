@@ -1,6 +1,7 @@
 
 gunicorn
 sodapy
+pandas
 requests
 datetime
 plotly
