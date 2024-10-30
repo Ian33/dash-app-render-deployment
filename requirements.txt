@@ -3,5 +3,5 @@ gunicorn
 sodapy
 requests
 datetime
-plotly.express
-dash
+plotly
+dash==2.12.0

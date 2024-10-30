@@ -6,7 +6,9 @@ import base64
 from urllib.parse import urlencode
 from datetime import datetime, timedelta
 import plotly.express as px
-from dash import Dash, dcc, html, Input, Output
+import dash
+from dash import dcc, html
+from dash.dependencies import Input, Output, State
 
 
 # Create the Dash app
