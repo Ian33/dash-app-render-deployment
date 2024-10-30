@@ -15,6 +15,13 @@ from dash.dependencies import Input, Output, State
 app = dash.Dash(__name__)
 server = app.server
 
+# Dash Layout
+app.layout = html.Div([
+    html.H1("Battery Voltage Status of Sites"),
+    dcc.Graph(id='battery-graph'),
+    html.Button('Refresh Data', id='refresh-button', n_clicks=0),
+])
+
 # Define the layout of the dashboard
 
 # Define functions as in your original code
@@ -96,12 +103,7 @@ def create_battery_graph(battery_site_status):
                           zoom=9)
     return fig
 
-# Dash Layout
-app.layout = html.Div([
-    html.H1("Battery Voltage Status of Sites"),
-    dcc.Graph(id='battery-graph'),
-    html.Button('Refresh Data', id='refresh-button', n_clicks=0),
-])
+
 
 @app.callback(
     Output('battery-graph', 'figure'),
