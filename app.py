@@ -10,7 +10,7 @@ import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output, State
 
-# in render The "Start Command" should be updated as follows: $gunicorn app:server
+
 # Create the Dash app
 app = dash.Dash(__name__)
 server = app.server
@@ -23,12 +23,15 @@ app.layout = html.Div([
     dcc.Store(id = 'metadata'), # store site metadata
     dcc.Store(id = 'gagers'), # store gager list
     dcc.Store(id = 'telemetry'), # store telemetry
+    html.Div(id='telemetry-output'),
+    html.Div(id='metadata-output'),
 
 ])
 # Define the layout of the dashboard
 @app.callback(
     Output('metadata', 'data'),
     Output('gagers', 'data'),
+    Output('metadata-output', 'children'),
     Input('refresh-button', 'n_clicks')
 )
 # Define functions as in your original code
@@ -50,13 +53,13 @@ def site_metadata(n_clicks):
         gager_list = df["gager"].drop_duplicates().tolist()
         df = df.to_json(orient="split")
     else:
-        print(f"Failed to retrieve data: {response.status_code}")
-        df, gager_list = pd.DataFrame().to_json(orient="split"), []
-    return df, gager_list
+        return dash.no_update 
+    return df, gager_list, df
 
 
 @app.callback(
     Output('telemetry', 'data'),
+    Output('telemetry-output', 'children'),
     Input('refresh-button', 'n_clicks')
 )
 def telemetry_status(n_clicks):
@@ -83,10 +86,8 @@ def telemetry_status(n_clicks):
         df = pd.DataFrame(data)
         df = df.to_json(orient="split")
     else:
-        print(f"Failed to retrieve data: {response.status_code}")
-        df = pd.DataFrame()
-        df = df.to_json(orient="split")
-    return df
+        return dash.no_update
+    return df,df
 
 
 @app.callback(
