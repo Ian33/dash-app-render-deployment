@@ -10,24 +10,25 @@ import plotly.express as px
 import dash
 from dash import dcc, html
 from dash.dependencies import Input, Output, State
-#
+# .venv\Scripts\activate
+# pip install -r requirements.txt
 
-# Create the Dash app
-app = dash.Dash(__name__)
+
+app = dash.Dash(__name__, meta_tags=[{"name": "viewport", "content": "width=device-width"}],)
+app.title = "Site Viewer"
 server = app.server
 
-# Dash Layout
-app.layout = html.Div([
-    html.H1("Battery Voltage Status of Sites"),
-    dcc.Graph(id='battery-graph'),
-    html.Button('Refresh Data', id='refresh-button', n_clicks=0),
-    dcc.Store(id = 'metadata'), # store site metadata
-    dcc.Store(id = 'gagers'), # store gager list
-    dcc.Store(id = 'telemetry'), # store telemetry
-   
- 
 
-])
+
+app.layout = html.Div(children = [html.Div(className = "row", children = html.Div(html.H1("Battery Voltage Status of Sites"),)), 
+                                  html.Div(className = "graph", children = html.Div(dcc.Graph(id='battery-graph'),)),
+                                  html.Div(className = "row", children = html.Div(html.Button('Refresh Data', id='refresh-button', n_clicks=0))),
+                                  dcc.Store(id = 'metadata'), # store site metadata
+                                  dcc.Store(id = 'gagers'), # store gager list
+                                  dcc.Store(id = 'telemetry'), # store telemetry
+                                  ],)
+
+
 # Define the layout of the dashboard
 @app.callback(
     Output('metadata', 'data'),
@@ -140,6 +141,8 @@ def create_battery_graph(metadata, telemetry, n_clicks):
         xanchor="center",
         x=0.5  # Center horizontally
     ),
+    autosize=True,
+    margin=dict(l=0, r=0, t=0, b=0),
     #mapbox_style="open-street-map"  # Add map style if not already defined
 )
     return fig
